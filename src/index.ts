@@ -19,6 +19,8 @@ const addLineBreaks = (text: string, limit = 15) => {
 }
 
 app.get('/attp', (req, res) => {
+    console.log('Hit /attp!')
+    console.log(req.query)
     const lines = addLineBreaks(req.query['text']?.toString() || '').split('\n')
     const size = 500
     const colors: string[] = []
