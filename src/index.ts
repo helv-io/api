@@ -22,6 +22,7 @@ app.get('/attp', (req, res) => {
     console.log('Hit /attp!')
     console.log(req.query)
     const lines = addLineBreaks(req.query['text']?.toString() || '').split('\n')
+    console.log(lines)
     const size = 500
     const colors: string[] = []
 
