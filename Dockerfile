@@ -8,7 +8,6 @@ RUN apk add --no-cache \
     giflib-dev \
     terminus-font \
     ttf-inconsolata \
-    ttf-dejavu font-bitstream-* \
     font-noto \
     font-noto-cjk \
     ttf-font-awesome \
