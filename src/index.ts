@@ -24,6 +24,7 @@ app.get('/attp', (req, res) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
+    console.log('lines', lines)
     const size = 500
     const colors: string[] = []
 
