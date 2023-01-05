@@ -36,13 +36,7 @@ app.get('/attp', (req, res) => {
     const lines = limitSplit(text)
     console.log('lines', lines)
     const size = 500
-    const colors: string[] = []
-
-    // Generate 10 random colors.
-    // Should have a static set someday.
-    for (let i = 0; i < 10; i++) {
-        colors.push(`#${((Math.random() * 0xffffff) << 0).toString(16)}`)
-    }
+    const colors = ['#FFA07A', '#FFFFE0', '#98FB98', '#ADD8E6', '#F08080']
 
     const encoder = new Encoder(size, size).setFrameRate(10).start()
     const context = encoder.getContext()
