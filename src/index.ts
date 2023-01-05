@@ -14,6 +14,7 @@ const limitSplit = (text: string = '', limit = 15) => {
         }
         line += word + ' '
     }
+    lines.push(line)
     return lines
 }
 
