@@ -3,7 +3,7 @@ import express from 'express'
 
 const app = express()
 
-const limitSplit = (text: string = '', limit = 15) => {
+const limitSplit = (text: string = '', limit = 10) => {
     // Declare variables
     const lines = []
     let line = ''
@@ -36,12 +36,12 @@ app.get('/attp', (req, res) => {
     const lines = limitSplit(text)
     console.log('lines', lines)
     const size = 500
-    const colors = ['#FFA07A', '#FFFFE0', '#98FB98', '#ADD8E6', '#F08080']
+    const colors = ['#FFA07A', '#FFFFE0', '#98FB98', '#ADD8E6', '#F08080', '#EEE8AA', '#90EE90', '#87CEFA', '#FFB6C1', '#FFC0CB']
 
     const encoder = new Encoder(size, size).setFrameRate(10).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * 8
+    const lineHeight = context.measureText('W').width * 9
     const totalHeight = lineHeight * (lines.length - 1)
     const x = size / 2
     let y = x - totalHeight / 2
