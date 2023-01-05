@@ -3,7 +3,7 @@ import express from 'express'
 
 const app = express()
 
-const limitSplit = (text: string = '', limit: number) => {
+const limitSplit = (text: string = '', limit = 15) => {
     const lines = []
     let line = ''
     const words = text.split(' ')
@@ -21,10 +21,9 @@ app.get('/attp', (req, res) => {
     console.log('Hit /attp!')
     console.log(req.query)
 
-    // Set 
-    const limit = Number(req.query.limit) || 15
+    // Get text from request query
     const text = <string>req.query.text
-    const lines = limitSplit(text, limit)
+    const lines = limitSplit(text)
     const size = 500
     const colors: string[] = []
 
