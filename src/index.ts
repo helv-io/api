@@ -46,7 +46,7 @@ app.get('/attp', (req, res) => {
     const x = size / 2
     let y = x - totalHeight / 2
 
-    context.font = '65px Arial'
+    context.font = '90px Arial'
     context.textAlign = 'center'
     context.textBaseline = 'middle'
 
