@@ -4,16 +4,25 @@ import express from 'express'
 const app = express()
 
 const limitSplit = (text: string = '', limit = 15) => {
+    // Declare variables
     const lines = []
     let line = ''
+
+    // Split text into words
     const words = text.split(' ')
+
+    // For each word
     for (const word of words) {
+        // Test if the line is past limit
         if (line.length > limit) {
+            // Add the line to the array and reset the line 
             lines.push(line.trim())
             line = ''
         }
+        // Add the line and keep working on it
         line += word + ' '
     }
+    // Add the last (partial) line and return it
     lines.push(line)
     return lines
 }
@@ -38,7 +47,7 @@ app.get('/attp', (req, res) => {
     const encoder = new Encoder(size, size).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * 3
+    const lineHeight = context.measureText('W').width * 4
     const totalHeight = lineHeight * lines.length
     const x = size / 2
     let y = x - totalHeight / 2
