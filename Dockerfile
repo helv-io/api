@@ -11,9 +11,10 @@ RUN apk add --no-cache \
     font-noto \
     font-noto-cjk \
     ttf-font-awesome \
-    font-noto-extra
+    font-noto-extra \
+    font-noto-emoji
 WORKDIR /usr/src/app
-ADD ["dist/dist.js", "package*.json", "/usr/src/app/"]
+ADD ["dist/dist.js","package*.json","/usr/src/app/"]
 RUN npm i --omit=dev
 EXPOSE 3000
 ENTRYPOINT ["node"]
