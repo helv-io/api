@@ -44,7 +44,7 @@ app.get('/attp', (req, res) => {
         colors.push(`#${((Math.random() * 0xffffff) << 0).toString(16)}`)
     }
 
-    const encoder = new Encoder(size, size).start()
+    const encoder = new Encoder(size, size).setFrameRate(5).start()
     const context = encoder.getContext()
 
     const lineHeight = context.measureText('W').width * 8
