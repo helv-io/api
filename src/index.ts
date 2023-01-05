@@ -41,7 +41,7 @@ app.get('/attp', (req, res) => {
     const encoder = new Encoder(size, size).setFrameRate(10).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * 9
+    const lineHeight = context.measureText('W').width * 10
     const totalHeight = lineHeight * (lines.length - 1)
     const x = size / 2
     let y = x - totalHeight / 2
