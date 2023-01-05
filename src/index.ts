@@ -38,9 +38,6 @@ app.get('/attp', (req, res) => {
     const size = 500
     const colors: string[] = []
 
-    const lineHeightMultiplier = Math.floor(Math.random() * 6) + 4
-    lines[0] = `${lineHeightMultiplier} - ${lines[0]}`
-
     // Generate 10 random colors.
     // Should have a static set someday.
     for (let i = 0; i < 10; i++) {
@@ -50,8 +47,8 @@ app.get('/attp', (req, res) => {
     const encoder = new Encoder(size, size).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * lineHeightMultiplier
-    const totalHeight = lineHeight * lines.length
+    const lineHeight = context.measureText('W').width * 8
+    const totalHeight = lineHeight * (lines.length - 1)
     const x = size / 2
     let y = x - totalHeight / 2
 
