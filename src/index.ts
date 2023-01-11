@@ -50,6 +50,7 @@ app.get('/attp', (req, res) => {
     context.textAlign = 'center'
     context.textBaseline = 'middle'
     context.strokeStyle = '#000000'
+    context.lineWidth = 3
 
     colors.forEach((color) => {
         context.fillStyle = color
@@ -88,6 +89,8 @@ app.get('/ttp', (req, res) => {
 
     context.fillStyle = '#FFFFFF'
     context.strokeStyle = '#000000'
+    context.lineWidth = 3
+
     lines.forEach((line) => {
         context.fillText(line, x, y, size)
         context.strokeText(line, x, y, size)
