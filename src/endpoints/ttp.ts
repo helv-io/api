@@ -8,6 +8,7 @@ const FONT_SIZE = 100
 const TEXT_ALIGN = 'center'
 const TEXT_BASELINE = 'middle'
 const LINE_WIDTH = 2
+const MAX_LINES = 4
 const BLACK = '#000000'
 const WHITE = '#FFFFFF'
 const COLORS = ['#FFA07A', '#FFFFE0', '#98FB98', '#ADD8E6', '#F08080', '#EEE8AA', '#90EE90', '#87CEFA', '#FFB6C1', '#FFC0CB']
@@ -16,11 +17,10 @@ export const ttp = (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
-    const maxLines = 8
 
     let fontSize = FONT_SIZE
-    if (lines.length > maxLines) {
-        fontSize = FONT_SIZE * (maxLines / lines.length)
+    if (lines.length > MAX_LINES) {
+        fontSize = FONT_SIZE * (MAX_LINES / lines.length)
     }
 
     const encoder = new Encoder(IMAGE_SIZE, IMAGE_SIZE).setFrameRate(10).start()
@@ -54,11 +54,10 @@ export const attp = (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
-    const maxLines = 8
 
     let fontSize = FONT_SIZE
-    if (lines.length > maxLines) {
-        fontSize = FONT_SIZE * (maxLines / lines.length)
+    if (lines.length > MAX_LINES) {
+        fontSize = FONT_SIZE * (MAX_LINES / lines.length)
     }
 
     const encoder = new Encoder(IMAGE_SIZE, IMAGE_SIZE).setFrameRate(10).start()

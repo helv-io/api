@@ -18,7 +18,7 @@ export const limitSplit = (text: string = '', limit = 10) => {
         // Add the word to the line
         line += word + ' '
 
-        // if the word is the last word in text
+        // When the word is the last word in text
         if (words.indexOf(word) === words.length - 1) {
             // add the last line
             lines.push(line.trim())
