@@ -62,6 +62,39 @@ app.get('/attp', (req, res) => {
     res.type('gif').end(encoder.finish())
 })
 
+app.get('/ttp', (req, res) => {
+    console.log('Hit /ttp!')
+    console.log(req.query)
+
+    // Get text from request query
+    const text = <string>req.query.text
+    const lines = limitSplit(text)
+    console.log('lines', lines)
+    const size = 500
+
+    const encoder = new Encoder(size, size).setFrameRate(10).start()
+    const context = encoder.getContext()
+
+    const lineHeight = context.measureText('W').width * 12
+    const totalHeight = lineHeight * (lines.length - 1)
+    const x = size / 2
+    let y = x - totalHeight / 2
+
+    context.font = '90px Arial'
+    context.textAlign = 'center'
+    context.textBaseline = 'middle'
+
+
+    context.fillStyle = '#000000'
+    lines.forEach((line) => {
+        context.fillText(line, x, y, size)
+        y += lineHeight
+    })
+    encoder.updateFrame()
+    y = x - totalHeight / 2
+    res.type('gif').end(encoder.finish())
+})
+
 app.listen(3000, async () => {
     console.log('Listening on port 3000')
 })
