@@ -3,7 +3,8 @@ import { Request, Response } from 'express'
 import { limitSplit } from '../utils/utils'
 
 const IMAGE_SIZE = 512
-const FONT = '100px Blogger'
+const FONT = 'Blogger'
+const FONT_SIZE = 100
 const TEXT_ALIGN = 'center'
 const TEXT_BASELINE = 'middle'
 const LINE_WIDTH = 2
@@ -15,16 +16,22 @@ export const ttp = (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
+    const maxLines = 8
+
+    let fontSize = FONT_SIZE
+    if (lines.length > maxLines) {
+        fontSize = FONT_SIZE * (maxLines / lines.length)
+    }
 
     const encoder = new Encoder(IMAGE_SIZE, IMAGE_SIZE).setFrameRate(10).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * 12
+    const lineHeight = fontSize * 1.2
     const totalHeight = lineHeight * (lines.length - 1)
-    const x = IMAGE_SIZE / 2 + 12
+    const x = IMAGE_SIZE / 2
     let y = x - totalHeight / 2
 
-    context.font = FONT
+    context.font = `${fontSize}px ${FONT}`
     context.textAlign = TEXT_ALIGN
     context.textBaseline = TEXT_BASELINE
 
@@ -47,16 +54,22 @@ export const attp = (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
+    const maxLines = 8
+
+    let fontSize = FONT_SIZE
+    if (lines.length > maxLines) {
+        fontSize = FONT_SIZE * (maxLines / lines.length)
+    }
 
     const encoder = new Encoder(IMAGE_SIZE, IMAGE_SIZE).setFrameRate(10).start()
     const context = encoder.getContext()
 
-    const lineHeight = context.measureText('W').width * 12
+    const lineHeight = fontSize * 1.2
     const totalHeight = lineHeight * (lines.length - 1)
-    const x = IMAGE_SIZE / 2 + 12
+    const x = IMAGE_SIZE / 2
     let y = x - totalHeight / 2
 
-    context.font = FONT
+    context.font = `${fontSize}px ${FONT}`
     context.textAlign = TEXT_ALIGN
     context.textBaseline = TEXT_BASELINE
     context.strokeStyle = BLACK

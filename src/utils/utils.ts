@@ -1,4 +1,4 @@
-export const limitSplit = (text: string = '', limit = 10) => {
+export const limitSplit = (text: string = '', limit = 6) => {
     // Declare variables
     const lines: string[] = []
     let line = ''
