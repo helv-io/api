@@ -49,11 +49,13 @@ app.get('/attp', (req, res) => {
     context.font = '90px Arial'
     context.textAlign = 'center'
     context.textBaseline = 'middle'
+    context.strokeStyle = '#000000'
 
     colors.forEach((color) => {
         context.fillStyle = color
         lines.forEach((line) => {
             context.fillText(line, x, y, size)
+            context.strokeText(line, x, y, size)
             y += lineHeight
         })
         encoder.updateFrame()
@@ -85,10 +87,10 @@ app.get('/ttp', (req, res) => {
     context.textBaseline = 'middle'
 
     context.fillStyle = '#FFFFFF'
-    context.strokeStyle = '#000000';
+    context.strokeStyle = '#000000'
     lines.forEach((line) => {
         context.fillText(line, x, y, size)
-        context.stroke()
+        context.strokeText(line, x, y, size)
         y += lineHeight
     })
     encoder.updateFrame()
