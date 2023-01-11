@@ -2,7 +2,7 @@ import { registerFont } from 'canvas'
 import express from 'express'
 import { attp, ttp } from './endpoints/ttp'
 
-registerFont('./font/blogger sans-bold.ttf', { family: 'Blogger' })
+registerFont('./blogger sans-bold.ttf', { family: 'Blogger' })
 
 const app = express()
 app.get('/attp', attp)
