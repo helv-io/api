@@ -85,7 +85,8 @@ app.get('/ttp', (req, res) => {
     context.textBaseline = 'middle'
 
 
-    context.fillStyle = '#000000'
+    context.fillStyle = '#FFFFFF'
+    context.strokeStyle = '#000000';
     lines.forEach((line) => {
         context.fillText(line, x, y, size)
         y += lineHeight
