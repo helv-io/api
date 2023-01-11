@@ -1,4 +1,4 @@
-export const limitSplit = (text: string = '', limit = 6) => {
+export const limitSplit = (text: string = '', limit = 10) => {
     // Declare variables
     const lines: string[] = []
     let line = ''
@@ -8,16 +8,23 @@ export const limitSplit = (text: string = '', limit = 6) => {
 
     // For each word
     for (const word of words) {
-        // Test if the line is past limit
-        if (line.length > limit) {
-            // Add the line to the array and reset the line 
+        // Test if the line plus the next word is past limit
+        if ((line.length + word.length) > limit) {
+            // Add the line to the array and reset the line
             lines.push(line.trim())
             line = ''
         }
-        // Add the line and keep working on it
+
+        // Add the word to the line
         line += word + ' '
+
+        // if the word is the last word in text
+        if (words.indexOf(word) === words.length - 1) {
+            // add the last line
+            lines.push(line.trim())
+        }
     }
-    // Add the last (partial) line and return it
-    lines.push(line)
+
+    // return the lines
     return lines
 }
