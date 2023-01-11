@@ -84,11 +84,11 @@ app.get('/ttp', (req, res) => {
     context.textAlign = 'center'
     context.textBaseline = 'middle'
 
-
     context.fillStyle = '#FFFFFF'
     context.strokeStyle = '#000000';
     lines.forEach((line) => {
         context.fillText(line, x, y, size)
+        context.stroke()
         y += lineHeight
     })
     encoder.updateFrame()
