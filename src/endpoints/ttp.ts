@@ -46,7 +46,7 @@ export const ttp = (req: Request, res: Response) => {
     })
     encoder.updateFrame()
     y = x - totalHeight / 2
-    res.type('gif').end(encoder.finish())
+    res.type('image/gif').end(encoder.finish())
 }
 
 export const attp = (req: Request, res: Response) => {
@@ -84,5 +84,5 @@ export const attp = (req: Request, res: Response) => {
         encoder.updateFrame()
         y = x - totalHeight / 2
     })
-    res.type('gif').end(encoder.finish())
+    res.type('image/gif').end(encoder.finish())
 }
