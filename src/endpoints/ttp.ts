@@ -14,13 +14,11 @@ const BLACK = '#000000'
 const WHITE = '#FFFFFF'
 const COLORS = ['#FFA07A', '#FFFFE0', '#98FB98', '#ADD8E6', '#F08080', '#EEE8AA', '#90EE90', '#87CEFA', '#FFB6C1', '#FFC0CB']
 
-let format: 'webp' | 'gif' | 'base64'
-
 export const ttp = async (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
-    const format = <'webp' | 'gif' | 'base64'>req.query.format || 'webp'
+    const format = <string>req.query.format || 'webp'
 
     let fontSize = FONT_SIZE
     if (lines.length > MAX_LINES) {
@@ -51,22 +49,15 @@ export const ttp = async (req: Request, res: Response) => {
     encoder.updateFrame()
     y = x - totalHeight / 2
 
-    // Send preferred format
-    if (format === 'webp') {
-        const webp = await gifToWebp(encoder.finish())
-        res.type('image/webp').sendFile(webp, async () => await fs.unlink(webp))
-    } else if (format === 'base64') {
-        res.type('text').end(encoder.finish().toString('base64'))
-    } else {
-        res.type('image/gif').end(encoder.finish())
-    }
+    // Send response to browser
+    sendResponse(format, encoder, res)
 }
 
 export const attp = async (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
-    const format = <'webp' | 'gif' | 'base64'>req.query.format || 'webp'
+    const format = <string>req.query.format || 'webp'
 
     let fontSize = FONT_SIZE
     if (lines.length > MAX_LINES) {
@@ -98,13 +89,17 @@ export const attp = async (req: Request, res: Response) => {
         y = x - totalHeight / 2
     })
 
-    // Send preferred format
-    if (format === 'webp') {
-        const webp = await gifToWebp(encoder.finish())
-        res.type('image/webp').sendFile(webp, async () => await fs.unlink(webp))
+    // Send response to browser
+    sendResponse(format, encoder, res)
+}
+
+const sendResponse = async (format: string, encoder: Encoder, res: Response) => {
+    if (format === 'gif') {
+        res.type('image/gif').end(encoder.finish())
     } else if (format === 'base64') {
         res.type('text').end(encoder.finish().toString('base64'))
     } else {
-        res.type('image/gif').end(encoder.finish())
+        const webp = await gifToWebp(encoder.finish())
+        res.type('image/webp').sendFile(webp, async () => await fs.unlink(webp))
     }
 }
