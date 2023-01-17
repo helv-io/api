@@ -100,7 +100,7 @@ const sendResponse = async (format: string, gif: Buffer, res: Response, animated
     } else if (format === 'base64') {
         res.type('text').end(gif.toString('base64'))
     } else {
-        const webp = sharp(gif, { animated }).webp().toBuffer()
+        const webp = await sharp(gif, { animated }).webp().toBuffer()
         res.type('webp').end(webp)
     }
 }
