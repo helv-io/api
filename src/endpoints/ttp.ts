@@ -1,7 +1,7 @@
 import { Encoder } from 'canvagif'
 import { Request, Response } from 'express'
 import * as fs from 'fs/promises'
-import { gifToWebp, limitSplit } from '../utils/utils'
+import { gifToWebp, hash, limitSplit } from '../utils/utils'
 
 const IMAGE_SIZE = 512
 const FONT = 'Blogger'
@@ -50,7 +50,7 @@ export const ttp = async (req: Request, res: Response) => {
     y = x - totalHeight / 2
 
     // Send response to browser
-    sendResponse(format, encoder, res)
+    sendResponse(format, encoder, res, hash(`ttp${text}`))
 }
 
 export const attp = async (req: Request, res: Response) => {
@@ -91,16 +91,16 @@ export const attp = async (req: Request, res: Response) => {
 
     // Send response to browser
     console.log(`Sending "${text}" as ${format}`)
-    sendResponse(format, encoder, res)
+    sendResponse(format, encoder, res, hash(`attp${text}`))
 }
 
-const sendResponse = async (format: string, encoder: Encoder, res: Response) => {
+const sendResponse = async (format: string, encoder: Encoder, res: Response, hash: number) => {
     if (format === 'gif') {
         res.type('gif').end(encoder.finish())
     } else if (format === 'base64') {
         res.type('text').end(encoder.finish().toString('base64'))
     } else {
-        const webp = await gifToWebp(encoder.finish())
+        const webp = await gifToWebp(encoder.finish(), hash)
         res.sendFile(webp, async () => await fs.unlink(webp))
     }
 }

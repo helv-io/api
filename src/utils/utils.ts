@@ -34,9 +34,9 @@ export const limitSplit = (text: string = '', limit = 10) => {
     return lines
 }
 
-export const gifToWebp = async (gif: Buffer) => {
-    const gifFile = path.join(tmpdir(), 'gif.gif')
-    const webpFile = path.join(tmpdir(), 'webp.webp')
+export const gifToWebp = async (gif: Buffer, hash: number) => {
+    const gifFile = path.join(tmpdir(), `${hash}.gif`)
+    const webpFile = path.join(tmpdir(), `${hash}.webp`)
     await fs.writeFile(gifFile, gif)
     return new Promise<string>(async (resolve, reject) => {
         ffmpeg({ source: gifFile })
@@ -48,4 +48,17 @@ export const gifToWebp = async (gif: Buffer) => {
             })
             .save(webpFile)
     })
+}
+
+export const hash = (text: string) => {
+    let hash = 0
+    let i: number
+    let chr: number
+    if (text.length === 0) return hash
+    for (i = 0; i < text.length; i++) {
+        chr = text.charCodeAt(i)
+        hash = ((hash << 5) - hash) + chr
+        hash |= 0
+    }
+    return hash;
 }
