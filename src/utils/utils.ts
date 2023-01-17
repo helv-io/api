@@ -1,3 +1,8 @@
+import ffmpeg from 'fluent-ffmpeg'
+import * as fs from 'fs/promises'
+import { tmpdir } from 'os'
+import path from 'path'
+
 export const limitSplit = (text: string = '', limit = 10) => {
     // Declare variables
     const lines: string[] = []
@@ -27,4 +32,20 @@ export const limitSplit = (text: string = '', limit = 10) => {
 
     // return the lines
     return lines
+}
+
+export const gifToWebp = async (gif: Buffer) => {
+    const gifFile = path.join(tmpdir(), 'gif.gif')
+    const webpFile = path.join(tmpdir(), 'webp.webp')
+    await fs.writeFile(gifFile, gif)
+    return new Promise<string>(async (resolve, reject) => {
+        ffmpeg({ source: gifFile })
+            .outputOptions(['-vcodec webp', '-loop 0', '-pix_fmt yuva420p'])
+            .on('error', (error) => reject(error))
+            .on('end', async () => {
+                await fs.unlink(gifFile)
+                resolve(webpFile)
+            })
+            .save(webpFile)
+    })
 }

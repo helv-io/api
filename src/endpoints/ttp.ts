@@ -1,6 +1,7 @@
 import { Encoder } from 'canvagif'
 import { Request, Response } from 'express'
-import { limitSplit } from '../utils/utils'
+import * as fs from 'fs/promises'
+import { gifToWebp, limitSplit } from '../utils/utils'
 
 const IMAGE_SIZE = 512
 const FONT = 'Blogger'
@@ -49,8 +50,7 @@ export const ttp = (req: Request, res: Response) => {
     res.type('image/gif').end(encoder.finish())
 }
 
-export const attp = (req: Request, res: Response) => {
-
+export const attp = async (req: Request, res: Response) => {
     // Get text from request query
     const text = <string>req.query.text
     const lines = limitSplit(text)
@@ -84,5 +84,6 @@ export const attp = (req: Request, res: Response) => {
         encoder.updateFrame()
         y = x - totalHeight / 2
     })
-    res.type('image/gif').end(encoder.finish())
+    const webp = await gifToWebp(encoder.finish())
+    res.type('image/webp').sendFile(webp, async () => await fs.unlink(webp))
 }
