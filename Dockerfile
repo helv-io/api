@@ -11,8 +11,7 @@ RUN apk add --no-cache \
     font-noto \
     font-noto-cjk \
     ttf-font-awesome \
-    font-noto-extra \
-    ffmpeg
+    font-noto-extra
 # font-noto-emoji
 WORKDIR /usr/src/app
 ADD ["dist/dist.js","*.ttf","package*.json","/usr/src/app/"]
