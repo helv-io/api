@@ -90,6 +90,7 @@ export const attp = async (req: Request, res: Response) => {
     })
 
     // Send response to browser
+    console.log(`Sending "${text}" as ${format}`)
     sendResponse(format, encoder, res)
 }
 
@@ -100,6 +101,6 @@ const sendResponse = async (format: string, encoder: Encoder, res: Response) => 
         res.type('text').end(encoder.finish().toString('base64'))
     } else {
         const webp = await gifToWebp(encoder.finish())
-        res.type('webp').sendFile(webp, async () => await fs.unlink(webp))
+        res.sendFile(webp, async () => await fs.unlink(webp))
     }
 }
