@@ -95,11 +95,11 @@ export const attp = async (req: Request, res: Response) => {
 
 const sendResponse = async (format: string, encoder: Encoder, res: Response) => {
     if (format === 'gif') {
-        res.type('image/gif').end(encoder.finish())
+        res.type('gif').end(encoder.finish())
     } else if (format === 'base64') {
         res.type('text').end(encoder.finish().toString('base64'))
     } else {
         const webp = await gifToWebp(encoder.finish())
-        res.type('image/webp').sendFile(webp, async () => await fs.unlink(webp))
+        res.type('webp').sendFile(webp, async () => await fs.unlink(webp))
     }
 }
