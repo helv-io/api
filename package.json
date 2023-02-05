@@ -32,7 +32,7 @@
         "sharp": "^0.31.3"
     },
     "devDependencies": {
-        "@types/express": "^4.17.16",
+        "@types/express": "^4.17.17",
         "@types/sharp": "^0.31.1",
         "eslint": "^8.33.0",
         "eslint-config-prettier": "^8.6.0",
