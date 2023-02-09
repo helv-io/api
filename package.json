@@ -40,6 +40,6 @@
         "eslint-plugin-jsdoc": "^39.7.5",
         "eslint-plugin-prefer-arrow": "^1.2.3",
         "eslint-plugin-simple-import-sort": "^8.0.0",
-        "prettier": "^2.8.3"
+        "prettier": "^2.8.4"
     }
 }
